@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+<script src="libs/glam/glam.js" ></script>
+<title>glam - scatter plot</title>
+
+<style>
+	body{
+		margin: 0px;
+		background-color: #222;
+	}
+
+    .axis {
+        line-width:2;
+    }
+    #xAxis {
+        color:#dc3030;
+	}
+    #yAxis {
+        color:#266b38;
+	}
+    #zAxis {
+        color:#0094ff; 
+	}
+
+    .point {color:#882288;
+            shader:phong;
+    }
+	
+</style>
+<script>
+var x = [ 
+    0.06 ,
+    0.06 ,
+    0.06 ,
+    0.36 ,
+    0.36 ,
+    0.36 ,
+    0.66 ,
+    0.66 ,
+    0.66
+    ],
+    y = [ 
+        0 ,
+        0.05 ,
+         0.1 ,
+         0.05 ,
+         0.1 ,
+         0.15 ,
+          0.1 ,
+         0.15 ,
+         0.2 
+    ],
+
+    z =  [ 
+         0.12,
+          0.52,
+          0.92 ,
+         0.12,
+          0.52,
+          0.92,
+          0.12,
+           0.52,
+          0.92
+    ];
+
+function addPoints( scene ) {
+
+    var i = 0, j = 0, n = 3;
+    for (i = 0; i < x.length; i++) {
+        //for (j = 0; j < n; j++) {
+            var sphereelt = document.createElement('sphere');
+            //sphereelt.setAttribute('x', '' + ( i + 0.2 ) * 0.3);
+            //sphereelt.setAttribute('y', '' + ( i + j ) * 0.05 );
+            //sphereelt.setAttribute('z', '' + ( j + 0.3 ) * 0.4);
+            sphereelt.setAttribute('x', '' + x[i] * 1);
+            sphereelt.setAttribute('y', '' + y[i] * 3);
+            sphereelt.setAttribute('z', '' + z[i] * 0.5);
+            sphereelt.setAttribute('radius', '' + 0.03 );
+            //console.log("[ ", 
+            //    sphereelt.getAttribute('x'), ", ", 
+            //    sphereelt.getAttribute('y'), ", ",
+            //    sphereelt.getAttribute('z'), "]" );
+
+		    sphereelt.setAttribute('class', "point");
+		    scene.appendChild(sphereelt);
+        //}
+    }
+}
+
+$(document).ready(function(){
+	glam.ready();
+	var scene = document.getElementsByTagName('scene')[0];
+    addPoints( scene );
+});
+
+</script>
+</head>
+<body>
+<!-- 
+glam - Simple Axes and Points.
+ -->
+<div id="container" style="width:95%; height:100%;position:absolute;">
+<glam>
+  <scene>
+    <group>
+        <group y="0.5">
+            <cylinder id="yAxis" height="1" radius="0.01" />
+        </group>
+        <group y="1">
+            <cone height="0.03" radius="0.02" />
+        </group>
+        <group rz="90deg" x="0.5">
+            <cylinder id="xAxis" height="1" radius="0.01" />
+        </group>
+        <group rz="-90deg" x="1">
+            <cone height="0.03" radius="0.02" />
+        </group>
+        <group rx="90deg" z="0.5">
+            <cylinder id="zAxis" height="1" radius="0.01" />
+        </group>
+        <group rx="90deg" z="1">
+            <cone height="0.03" radius="0.02" />
+        </group>
+        <group id="points"/>
+
+
+
+        <!--line class="axis" id="xAxis">
+			<vertices>
+                0 0 0
+                1 0 0
+			</vertices>
+		<line>
+        <line class="axis" id="yAxis">
+			<vertices>
+                0 0 0
+                0 1 0
+			</vertices>
+		</line>
+        <line class="axis" id="zAxis">
+			<vertices>
+                0 0 0
+                0 0 1
+			</vertices>
+		</line-->
+    </group>
+
+  </scene>
+</glam>
+</div>
+
+</body>
+</html>
